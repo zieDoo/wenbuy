@@ -7,9 +7,11 @@ const App = () => {
       <h1>WenBuy</h1>
       <p>Know when to buy.</p>
 
-      {etfs.map((etf) => (
-        <ETFCard key={etf.ticker} etf={etf} />
-      ))}
+      <div className="dashboard">
+        {etfs.map((etf) => (
+          <ETFCard key={etf.ticker} etf={etf} />
+        ))}
+      </div>
     </div>
   );
 };

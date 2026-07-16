@@ -1,4 +1,5 @@
 import type { ETF } from "../types/etf";
+import "./ETFCard.css";
 
 type ETFCardProps = {
   etf: ETF;
@@ -6,11 +7,14 @@ type ETFCardProps = {
 
 const ETFCard = ({ etf }: ETFCardProps) => {
   return (
-    <div>
+    <div className="etf-card">
       <h2>{etf.name}</h2>
-      <p>{etf.ticker}</p>
-      <p>{etf.price}</p>
-      <p>{etf.change}</p>
+      <p className="ticker">{etf.ticker}</p>
+      <p className="price">{etf.price} €</p>
+      <p className="change">
+        {etf.change > 0 ? "+" : ""}
+        {etf.change}%
+      </p>
     </div>
   );
 };
