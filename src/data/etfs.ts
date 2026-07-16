@@ -9,4 +9,10 @@ export const etfs: ETF[] = [
     price: 128.5,
     change: 0.62,
   },
+  {
+    name: "Nasdaq 100",
+    ticker: "SXRV.DE",
+    price: 205.3,
+    change: -0.4,
+  },
 ];
