@@ -5,4 +5,5 @@ export interface ETF {
   ticker: string;
   price: number;
   change: number;
+  ath: number;
 }

@@ -8,6 +8,9 @@ type ETFCardProps = {
 };
 
 const ETFCard = ({ etf, updateETF }: ETFCardProps) => {
+  // Tu je useState priamo v karte. Ak by sme to nechali tak, tak by App o tom nevedela a zmena by sa vykonala len v karte.
+  // Tym ze sme stav posunuli do App (Lifting state UP), mame jedno jedine miesto pravdy.
+
   // aktualna hodnota = useState(default hodnota)
   // const [changeValue, setValueChange] = useState(etf.change);
 
