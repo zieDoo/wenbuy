@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { ETF } from "../types/etf";
 import "./ETFCard.css";
+import { getBuySignal } from "../utils/buySignal";
 
 type ETFCardProps = {
   etf: ETF;
@@ -14,17 +15,25 @@ const ETFCard = ({ etf, updateETF }: ETFCardProps) => {
   // aktualna hodnota = useState(default hodnota)
   // const [changeValue, setValueChange] = useState(etf.change);
 
+  const result = getBuySignal(etf);
+
   return (
     <div className="etf-card">
       <h2>{etf.name}</h2>
       <p className="ticker">{etf.ticker}</p>
-      <p className="price">{etf.price} €</p>
+      <p className="price">Price Now: {etf.price} €</p>
       <p className="change">
-        {etf.change > 0 ? "+" : ""}
-        {etf.change}%
+        Change: {etf.change > 0 ? "+" : ""}
+        {etf.change.toFixed(2)}%
       </p>
+      <p className={result.signal === "BUY" ? "buy" : "no-buy"}>
+        {result.signal}
+      </p>
+      <p>{result.reason}</p>
+      {/* <p>{result.dropPercentage} % - drop percentage</p> */}
+      <p>ATH: {etf.ath} €</p>
       {/* <button onClick={() => setValueChange((prevValue) => prevValue + 0.1)}> */}
-      <button onClick={() => updateETF({ ...etf, change: etf.change + 0.1 })}>
+      <button onClick={() => updateETF({ ...etf, price: etf.price - 1 })}>
         change
       </button>
     </div>
