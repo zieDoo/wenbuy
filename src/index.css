@@ -25,16 +25,16 @@ body {
   width: fit-content;
 } */
 
-/* .no-buy {
+.no-buy {
   color: white;
   background-color: red;
-  padding: 10px 20px;
-} */
+  padding: 15px 20px;
+}
 
-.no-buy {
+/* .no-buy {
   color: white;
   background: red;
   padding: 5px 15px;
   border-radius: 5px;
   display: inline-block;
-}
+} */

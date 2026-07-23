@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import type { ETF } from "../types/etf";
 import "./ETFCard.css";
 import { getBuySignal } from "../utils/buySignal";
