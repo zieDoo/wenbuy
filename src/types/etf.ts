@@ -2,8 +2,11 @@
 
 export interface ETF {
   name: string;
-  ticker: string;
+  symbol: string;
   price: number;
-  change: number;
-  ath: number;
+  currency: string;
+  changePercent: number;
+  exchange: string;
+  high52: number;
+  low52: number;
 }

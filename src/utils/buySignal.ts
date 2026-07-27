@@ -2,7 +2,7 @@ import type { ETF } from "../types/etf";
 import type { BuySignal } from "../types/signal";
 
 export const getBuySignal = (etf: ETF): BuySignal => {
-  const currentPercentage = etf.price / etf.ath;
+  const currentPercentage = etf.price / etf.high52;
   const dropPercentage = (1 - currentPercentage) * 100;
 
   const reason =
