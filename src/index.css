@@ -5,16 +5,29 @@ body {
 }
 
 .dashboard {
+  padding: 2rem;
+}
+
+.card-container {
   display: flex;
+  gap: 1.5rem;
   flex-wrap: wrap;
 }
 
-.buy {
+.header {
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  margin-top: 0;
+}
+
+/* .buy {
   color: white;
   background-color: rgb(60, 184, 60);
   padding: 15px 20px;
   display: block;
-}
+} */
 
 /* .buy {
   color: white;
@@ -25,11 +38,11 @@ body {
   width: fit-content;
 } */
 
-.no-buy {
+/* .no-buy {
   color: white;
   background-color: red;
   padding: 15px 20px;
-}
+} */
 
 /* .no-buy {
   color: white;

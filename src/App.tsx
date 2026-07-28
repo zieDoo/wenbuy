@@ -114,12 +114,17 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <h1>WenBuy</h1>
+    <div className="dashboard">
+      <header className="header">
+        <h1>WenBuy</h1>
+        <p>ETF buying assistant</p>
+      </header>
 
-      {portfolio.map((etf) => (
-        <ETFCard key={etf.symbol} etf={etf} />
-      ))}
+      <div className="card-container">
+        {portfolio.map((etf) => (
+          <ETFCard key={etf.symbol} etf={etf} />
+        ))}
+      </div>
     </div>
   );
 }

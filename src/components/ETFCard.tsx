@@ -48,22 +48,57 @@ interface ETFCardProps {
   etf: ETF;
 }
 
+function getCurrencySymbol(currency: string): string {
+  switch (currency) {
+    case "EUR":
+      return "€";
+    case "USD":
+      return "$";
+    case "GBP":
+      return "£";
+    default:
+      return currency;
+  }
+}
+
 function ETFCard({ etf }: ETFCardProps) {
   const dropFromHigh = ((etf.price - etf.high52) / etf.high52) * 100;
 
   return (
-    <div>
+    <div className="etf-card">
       <h2>{etf.name}</h2>
+      <p className="ticker">{etf.symbol}</p>
 
-      <p>
+      {/* <p className="price">
         Price: {etf.price} {etf.currency}
-      </p>
+      </p> */}
 
-      <p>Change: {etf.changePercent.toFixed(2)}%</p>
+      <div className="stat">
+        <span>Price:</span>
+        <strong>
+          {etf.price} {getCurrencySymbol(etf.currency)}
+        </strong>
+      </div>
 
-      <p>52W High: {etf.high52}</p>
+      <div className="stat">
+        <span>Change:</span>
+        <strong>{etf.changePercent.toFixed(2)}%</strong>
+      </div>
+      {/* <p className="change">Change: {etf.changePercent.toFixed(2)}%</p> */}
 
-      <p>Below High: {dropFromHigh.toFixed(2)}%</p>
+      <div className="stat">
+        <span>52W High:</span>
+        <strong>
+          {etf.high52} {getCurrencySymbol(etf.currency)}
+        </strong>
+      </div>
+      {/* <p>52W High: {etf.high52}</p> */}
+
+      <div className="stat">
+        <span>Below High:</span>
+        <strong>{dropFromHigh.toFixed(2)}%</strong>
+      </div>
+      {/* <p>Below High: {dropFromHigh.toFixed(2)}%</p> */}
     </div>
   );
 }
