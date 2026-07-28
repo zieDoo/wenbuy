@@ -91,23 +91,26 @@ import { etfs } from "./data/etfs";
 // 3rd attempt - AI
 
 function App() {
+  const REFRESH_INTERFVAL = 10000;
   const [portfolio, setPortfolio] = useState<ETF[]>([]);
 
+  async function loadETF() {
+    const data = await Promise.all(etfs.map((etf) => fetchETFInfo(etf.symbol)));
+
+    setPortfolio(
+      data.map((item, index) => ({
+        ...item,
+        name: etfs[index].name,
+      })),
+    );
+  }
+
   useEffect(() => {
-    async function loadETF() {
-      const data = await Promise.all(
-        etfs.map((etf) => fetchETFInfo(etf.symbol)),
-      );
-
-      setPortfolio(
-        data.map((item, index) => ({
-          ...item,
-          name: etfs[index].name,
-        })),
-      );
-    }
-
     loadETF();
+
+    const intervalId = setInterval(loadETF, REFRESH_INTERFVAL);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
