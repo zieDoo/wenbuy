@@ -2,6 +2,7 @@
 import type { ETF } from "../types/etf";
 import "./ETFCard.css";
 import { getBuySignal } from "../utils/buySignal";
+import { calculateBuyScore } from "../utils/buyScore";
 
 // type ETFCardProps = {
 //   etf: ETF;
@@ -74,6 +75,8 @@ function ETFCard({ etf }: ETFCardProps) {
   const dropFromHigh = ((etf.price - etf.high52) / etf.high52) * 100;
   const buyColor = getBuycolor(dropFromHigh);
 
+  const buyScore = calculateBuyScore(etf);
+
   return (
     <div className="etf-card">
       <h2>{etf.name}</h2>
@@ -120,6 +123,11 @@ function ETFCard({ etf }: ETFCardProps) {
       <div className="stat">
         <span>Weight:</span>
         <strong>{etf.weight}%</strong>
+      </div>
+
+      <div className="stat">
+        <span>Buy Score:</span>
+        <strong>{buyScore.toFixed(0)} / 100</strong>
       </div>
     </div>
   );
