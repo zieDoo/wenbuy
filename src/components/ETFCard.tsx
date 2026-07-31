@@ -1,7 +1,7 @@
 // import { useState } from "react";
 import type { ETF } from "../types/etf";
 import "./ETFCard.css";
-import { getBuySignal } from "../utils/buySignal";
+// import { getBuySignal } from "../utils/buySignal";
 import { calculateBuyScore } from "../utils/buyScore";
 
 // type ETFCardProps = {

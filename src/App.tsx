@@ -1,6 +1,6 @@
 import ETFCard from "./components/ETFCard";
 import { useEffect, useState } from "react";
-import { getETFData } from "./services/etfService";
+// import { getETFData } from "./services/etfService";
 import type { ETF } from "./types/etf";
 // import { getQuote } from "./api/twelveData";
 // import { fetchETFInfo } from "./api/twelveData";
