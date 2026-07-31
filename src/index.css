@@ -16,6 +16,9 @@ body {
 
 .header {
   margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
 .header h1 {

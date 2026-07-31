@@ -6,6 +6,7 @@ import type { ETF } from "./types/etf";
 // import { fetchETFInfo } from "./api/twelveData";
 import { fetchETFInfo } from "./api/market";
 import { etfs } from "./data/etfs";
+import { calculatePortfolioScore } from "./utils/portfolioScore";
 
 // 1st attempt - AI
 
@@ -94,6 +95,8 @@ function App() {
   const REFRESH_INTERFVAL = 10000;
   const [portfolio, setPortfolio] = useState<ETF[]>([]);
 
+  const portfolioScore = calculatePortfolioScore(portfolio);
+
   async function loadETF() {
     const data = await Promise.all(
       etfs.map(async (etf) => {
@@ -131,8 +134,10 @@ function App() {
     <div className="dashboard">
       <header className="header">
         <h1>WenBuy</h1>
-        <p>ETF buying assistant</p>
+        <p>Your ETF buying assistant</p>
       </header>
+
+      <h2>Portfolio Score: {portfolioScore.toFixed(0)} / 100</h2>
 
       <div className="card-container">
         {portfolio.map((etf) => (
