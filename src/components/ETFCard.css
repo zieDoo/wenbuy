@@ -68,3 +68,9 @@
   text-align: left;
   /* margin-right: 10px; */
 }
+
+.buy-indicator {
+  height: 8px;
+  border-radius: 10px;
+  margin-top: 2px;
+}

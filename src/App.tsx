@@ -95,14 +95,28 @@ function App() {
   const [portfolio, setPortfolio] = useState<ETF[]>([]);
 
   async function loadETF() {
-    const data = await Promise.all(etfs.map((etf) => fetchETFInfo(etf.symbol)));
+    const data = await Promise.all(
+      etfs.map(async (etf) => {
+        const marketData = await fetchETFInfo(etf.symbol);
 
-    setPortfolio(
-      data.map((item, index) => ({
-        ...item,
-        name: etfs[index].name,
-      })),
+        return {
+          ...etf,
+          ...marketData,
+          name: etf.name,
+        };
+      }),
     );
+
+    console.log("LOADED ETF:", data);
+
+    setPortfolio(data);
+
+    // setPortfolio(
+    //   data.map((item, index) => ({
+    //     ...item,
+    //     name: etfs[index].name,
+    //   })),
+    // );
   }
 
   useEffect(() => {

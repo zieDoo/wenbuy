@@ -9,4 +9,5 @@ export interface ETF {
   exchange: string;
   high52: number;
   low52: number;
+  weight: number;
 }

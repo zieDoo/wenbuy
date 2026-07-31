@@ -48,6 +48,14 @@ interface ETFCardProps {
   etf: ETF;
 }
 
+function getBuycolor(drop: number) {
+  const percent = Math.min(Math.abs(drop), 50);
+
+  const hue = (percent / 50) * 120;
+
+  return `hsl(${hue}, 80%, 50%)`;
+}
+
 function getCurrencySymbol(currency: string): string {
   switch (currency) {
     case "EUR":
@@ -62,7 +70,9 @@ function getCurrencySymbol(currency: string): string {
 }
 
 function ETFCard({ etf }: ETFCardProps) {
+  console.log(etf);
   const dropFromHigh = ((etf.price - etf.high52) / etf.high52) * 100;
+  const buyColor = getBuycolor(dropFromHigh);
 
   return (
     <div className="etf-card">
@@ -99,6 +109,18 @@ function ETFCard({ etf }: ETFCardProps) {
         <strong>{dropFromHigh.toFixed(2)}%</strong>
       </div>
       {/* <p>Below High: {dropFromHigh.toFixed(2)}%</p> */}
+
+      <div
+        className="buy-indicator"
+        style={{
+          backgroundColor: buyColor,
+        }}
+      ></div>
+
+      <div className="stat">
+        <span>Weight:</span>
+        <strong>{etf.weight}%</strong>
+      </div>
     </div>
   );
 }
