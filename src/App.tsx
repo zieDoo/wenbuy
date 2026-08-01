@@ -7,6 +7,7 @@ import type { ETF } from "./types/etf";
 import { fetchETFInfo } from "./api/market";
 import { etfs } from "./data/etfs";
 import { calculatePortfolioScore } from "./utils/portfolioScore";
+import ETFSearch from "./components/ETFSearch";
 
 // 1st attempt - AI
 
@@ -136,6 +137,9 @@ function App() {
         <h1>WenBuy</h1>
         <p>Your ETF buying assistant</p>
       </header>
+
+      <p>Add your ETF: </p>
+      <ETFSearch />
 
       <h2>Portfolio Score: {portfolioScore.toFixed(0)} / 100</h2>
 
