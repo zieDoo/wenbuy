@@ -1,4 +1,7 @@
-body {
+/* ================================================================================================= */
+/* THIS ONE IS GOOD */
+
+/* body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #f5f5f5;
@@ -23,7 +26,9 @@ body {
 
 .header h1 {
   margin-top: 0;
-}
+} */
+
+/* ================================================================================================= */
 
 /* .buy {
   color: white;
@@ -54,3 +59,49 @@ body {
   border-radius: 5px;
   display: inline-block;
 } */
+
+/* ================================================================================================= */
+
+/* TEsTING */
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: #f8fafc;
+  color: #111827;
+}
+
+.dashboard {
+  padding: 2rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: -1px;
+}
+
+.header p {
+  color: #6b7280;
+  margin-top: 5px;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.section-title {
+  margin-bottom: 1rem;
+  font-size: 22px;
+}

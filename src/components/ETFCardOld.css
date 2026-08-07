@@ -1,0 +1,82 @@
+/* ================================================================================================= */
+
+/* OLD SETUP */
+
+.etf-card {
+  /* width: 250px; */
+  width: fit-content;
+  /* min-width: 250px; */
+  /* border: 1px solid red; */
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  /* margin: 15px; */
+}
+
+.etf-card h2 {
+  margin: 0;
+}
+
+.ticker {
+  color: gray;
+  font-size: 14px;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.change {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.etf-card button {
+  display: block;
+  margin: 0 auto;
+}
+
+/* .stat {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px; */
+/* padding: 0 10px; */
+/* } */
+
+/* .stat {
+  display: grid;
+  grid-template-columns: 90px 130px;
+  gap: 10px;
+  align-items: center;
+  margin: 15px 0;
+} */
+
+.stat {
+  display: flex;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  gap: 20px;
+  margin: 10px 0;
+  /* padding: 0 5px; */
+}
+
+.stat span {
+  color: gray;
+  width: 90px;
+}
+
+.stat strong {
+  text-align: left;
+  /* margin-right: 10px; */
+}
+
+.buy-indicator {
+  height: 8px;
+  border-radius: 10px;
+  margin-top: 2px;
+}
+
+/* ================================================================================================= */
