@@ -1,8 +1,16 @@
 import axios from "axios";
 import type { ETF } from "../types/etf";
 
+// This part was for local development with hardset URL
+
+// const api = axios.create({
+//   baseURL: "http://localhost:3001/api",
+// });
+
+// This can decide between Vercel and local development
+
 const api = axios.create({
-  baseURL: "http://localhost:3001/api",
+  baseURL: import.meta.env.DEV ? "http://localhost:3001/api" : "/api",
 });
 
 export async function fetchETFInfo(symbol: string): Promise<ETF> {
