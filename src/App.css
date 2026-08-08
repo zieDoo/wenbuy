@@ -55,13 +55,16 @@
   padding: 1.5rem;
   background: #ffffff;
   border-radius: 16px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #dbe2ea;
 }
 
 .score-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  /* background: #eef4ff; */
+  /* border: 1px solid #d6e4ff; */
 }
 
 .score-label,

@@ -66,9 +66,10 @@
 
 body {
   margin: 0;
-  font-family: Inter, Arial, sans-serif;
-  background: #f8fafc;
-  color: #111827;
+  font-family: Arial, sans-serif;
+  /* background: #f8fafc;
+  color: #111827; */
+  background-color: #e2e8f0;
 }
 
 .dashboard {
