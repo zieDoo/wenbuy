@@ -8,6 +8,7 @@ import { fetchETFInfo } from "./api/market";
 import { etfs } from "./data/etfs";
 import { calculatePortfolioScore } from "./utils/portfolioScore";
 import ETFSearch from "./components/ETFSearch";
+import "./App.css";
 
 // 1st attempt - AI
 
@@ -132,23 +133,43 @@ function App() {
   }, []);
 
   return (
-    <div className="dashboard">
-      <header className="header">
+    <main className="app">
+      <header className="app-header">
         <h1>WenBuy</h1>
-        <p>Your ETF buying assistant</p>
+        <p>Know when to buy.</p>
       </header>
 
-      <p>Add your ETF: </p>
-      <ETFSearch />
+      <section className="dashboard-top">
+        <div className="score-card">
+          <span className="score-label">Portfolio Score</span>
+          <strong className="score-value">
+            {portfolioScore.toFixed(0)}
+            <span>/ 100</span>
+          </strong>
+          <div className="score-bar">
+            <div
+              className="score-bar-fill"
+              style={{ width: `${portfolioScore}%` }}
+            ></div>
+          </div>
+        </div>
 
-      <h2>Portfolio Score: {portfolioScore.toFixed(0)} / 100</h2>
+        <div className="search-card">
+          <span className="search-label">Add anETF</span>
+          <ETFSearch />
+        </div>
+      </section>
 
-      <div className="card-container">
-        {portfolio.map((etf) => (
-          <ETFCard key={etf.symbol} etf={etf} />
-        ))}
-      </div>
-    </div>
+      <section className="portfolio-section">
+        <h2>Your ETFs</h2>
+
+        <div className="card-container">
+          {portfolio.map((etf) => (
+            <ETFCard key={etf.symbol} etf={etf} />
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }
 

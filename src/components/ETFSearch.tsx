@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { availableEtfs } from "../data/availableEtfs";
+import "./ETFSearch.css";
 
 // const ETFSearch = () => {
 //     const [search, setSearch] = useState("")
@@ -15,7 +16,7 @@ const ETFSearch = () => {
   );
 
   return (
-    <div>
+    <div className="etf-search">
       <input
         type="text"
         placeholder="Search ETF..."
@@ -24,9 +25,9 @@ const ETFSearch = () => {
       />
 
       {search && (
-        <div>
+        <div className="search-results">
           {results.map((etf) => (
-            <div key={etf.symbol}>
+            <div className="search-result" key={etf.symbol}>
               <span>
                 {etf.name} ({etf.symbol})
               </span>

@@ -70,12 +70,23 @@ function getCurrencySymbol(currency: string): string {
   }
 }
 
+function getBuySignal(score: number) {
+  if (score >= 70) {
+    return "BUY";
+  }
+  if ((score = 40)) {
+    return "WATCH";
+  }
+  return "WAIT";
+}
+
 function ETFCard({ etf }: ETFCardProps) {
   console.log(etf);
   const dropFromHigh = ((etf.price - etf.high52) / etf.high52) * 100;
-  const buyColor = getBuycolor(dropFromHigh);
+  // const buyColor = getBuycolor(dropFromHigh);
 
   const buyScore = calculateBuyScore(etf);
+  const buySignal = getBuySignal(buyScore);
 
   return (
     <div className="etf-card">
@@ -114,11 +125,13 @@ function ETFCard({ etf }: ETFCardProps) {
       {/* <p>Below High: {dropFromHigh.toFixed(2)}%</p> */}
 
       <div
-        className="buy-indicator"
-        style={{
-          backgroundColor: buyColor,
-        }}
-      ></div>
+        className={`buy-indicator ${buySignal.toLowerCase()}`}
+        // style={{
+        //   backgroundColor: buyColor,
+        // }}
+      >
+        <span>{buySignal}</span>
+      </div>
 
       <div className="stat">
         <span>Weight:</span>
