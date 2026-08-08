@@ -49,13 +49,15 @@ interface ETFCardProps {
   etf: ETF;
 }
 
-function getBuycolor(drop: number) {
-  const percent = Math.min(Math.abs(drop), 50);
+// Funkcia ktora sa pouzivala na vykreslovanie farebneho signalu
 
-  const hue = (percent / 50) * 120;
+// function getBuycolor(drop: number) {
+//   const percent = Math.min(Math.abs(drop), 50);
 
-  return `hsl(${hue}, 80%, 50%)`;
-}
+//   const hue = (percent / 50) * 120;
+
+//   return `hsl(${hue}, 80%, 50%)`;
+// }
 
 function getCurrencySymbol(currency: string): string {
   switch (currency) {
