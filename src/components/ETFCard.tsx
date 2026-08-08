@@ -74,7 +74,7 @@ function getBuySignal(score: number) {
   if (score >= 70) {
     return "BUY";
   }
-  if ((score = 40)) {
+  if (score >= 40) {
     return "WATCH";
   }
   return "WAIT";
@@ -130,6 +130,7 @@ function ETFCard({ etf }: ETFCardProps) {
         //   backgroundColor: buyColor,
         // }}
       >
+        {/* <div className="buy-indicator watch"> */}
         <span>{buySignal}</span>
       </div>
 
@@ -138,7 +139,7 @@ function ETFCard({ etf }: ETFCardProps) {
         <strong>{etf.weight}%</strong>
       </div>
 
-      <div className="stat">
+      <div className={`buy-score ${buySignal.toLowerCase()}`}>
         <span>Buy Score:</span>
         <strong>{buyScore.toFixed(0)} / 100</strong>
       </div>

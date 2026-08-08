@@ -22,7 +22,7 @@
 
 .ticker {
   color: #64748b;
-  font-size: 0.85rempx;
+  font-size: 0.85rem;
   margin-top: 0.35rem;
 }
 
@@ -49,8 +49,73 @@
   font-weight: 600;
 }
 
-.buy-indicator {
+/* .buy-indicator {
   height: 10px;
   border-radius: 10px;
   margin: 15px 0;
+} */
+
+.buy-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  margin: 1.25rem 0;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.buy-indicator.buy {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.buy-indicator.watch {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.buy-indicator.wait {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.buy-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.buy-score span {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.buy-score strong {
+  font-size: 1.25rem;
+  color: #111827;
+}
+
+.buy-score small {
+  margin-left: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.buy-score.buy strong {
+  color: #16a34a;
+}
+
+.buy-score.watch strong {
+  color: #d97706;
+}
+
+.buy-score.wait strong {
+  color: #dc2626;
 }
