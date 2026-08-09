@@ -155,7 +155,7 @@ function App() {
         </div>
 
         <div className="search-card">
-          <span className="search-label">Add anETF</span>
+          <span className="search-label">Add an ETF</span>
           <ETFSearch />
         </div>
       </section>

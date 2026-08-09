@@ -92,7 +92,9 @@ function ETFCard({ etf }: ETFCardProps) {
 
   return (
     <div className="etf-card">
-      <button className="remove-button">x</button>
+      <button className="remove-button" aria-label={`Remove ${etf.symbol}`}>
+        x
+      </button>
 
       <div className="etf-header">
         <div>
