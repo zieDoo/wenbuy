@@ -15,9 +15,9 @@ export default async function handler(req, res) {
     res.status(200).json({
       symbol: quote.symbol,
       name: quote.longName,
-      price: quote.reqularMarketPrice,
+      price: quote.regularMarketPrice,
       currency: quote.currency,
-      changePercent: quote.reqularMarketChangePercent,
+      changePercent: quote.regularMarketChangePercent,
       exchange: quote.fullExchangeName,
       high52: quote.fiftyTwoWeekHigh,
       low52: quote.fiftyTwoWeekLow,
