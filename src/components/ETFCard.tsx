@@ -87,7 +87,16 @@ function ETFCard({ etf }: ETFCardProps) {
   const dropFromHigh = ((etf.price - etf.high52) / etf.high52) * 100;
   // const buyColor = getBuycolor(dropFromHigh);
 
+  // THIS IS HERE JUST FOR THE SCREENSHOT
+  // const realScore = calculateBuyScore(etf);
+  // const demoScores: Record<string, number> = {
+  //   "SXRV.DE": 74,
+  //   "EUNL.DE": 48,
+  // };
+
   const buyScore = calculateBuyScore(etf);
+  // THIS IS HERE JUST FOR THE SCREENSHOT
+  // const buyScore = demoScores[etf.symbol] ?? realScore;
   const buySignal = getBuySignal(buyScore);
 
   return (
