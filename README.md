@@ -4,47 +4,80 @@
 
 The app helps users monitor ETF prices and see how far the current price is from recent highs, providing a simple overview of possible buying opportunities.
 
+🔗 **[Live Demo](https://wenbuy-beta.vercel.app/)**
+
 ## Features
 
 - ETF price monitoring
-- Price comparison with recent highs
-- Simple buy opportunity overview
+- Price comparison with 52-week highs
+- Buy Score and buy signal
+- Portfolio weight tracking
+- ETF search and selection
 - Responsive user interface
 - Market data integration
 
 ## Technologies
 
+### Frontend
+
 - React
 - TypeScript
 - Vite
+- Axios
 - CSS
-- REST API
+
+### Backend
+
+- Node.js
+- Express
+- Yahoo Finance
+- CORS
+
+## Preview
+
+![WenBuy dashboard](./screenshot/dashboard.png)
 
 ## Installation
 
-Clone the repository:
+### 1. Clone the repository
 
-```bash
+~~~bash
 git clone https://github.com/zieDoo/wenbuy.git
-```
-
-Navigate to the project folder:
-
-```bash
 cd wenbuy
-```
+~~~
 
-Install dependencies:
+### 2. Install frontend dependencies
 
-```bash
+~~~bash
 npm install
-```
+~~~
 
-Start the development server:
+### 3. Start the frontend
 
-```bash
+~~~bash
 npm run dev
-```
+~~~
+
+### 4. Install backend dependencies
+
+Open a new terminal and navigate to the server folder:
+
+~~~bash
+cd server
+npm install
+~~~
+
+### 5. Start the backend
+
+~~~bash
+node index.js
+~~~
+
+The backend runs on:
+
+~~~text
+http://localhost:3001
+~~~
 
 ## About
 
@@ -55,3 +88,4 @@ WenBuy was created as a personal frontend project to practice building modern we
 - More ETF indicators
 - Historical price charts
 - Additional market data sources
+- User accounts and portfolio persistence
