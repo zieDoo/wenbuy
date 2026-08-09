@@ -110,7 +110,7 @@ function ETFCard({ etf }: ETFCardProps) {
       <div className="stat">
         <span>Price:</span>
         <strong>
-          {etf.price} {getCurrencySymbol(etf.currency)}
+          {etf.price.toFixed(2)} {getCurrencySymbol(etf.currency)}
         </strong>
       </div>
 
