@@ -28,6 +28,11 @@ export const etfs = [
   {
     name: "MSCI World",
     symbol: "EUNL.DE",
-    weight: 70,
+    weight: 50,
+  },
+  {
+    name: "Vanguard FTSE All-World",
+    symbol: "VWCE.DE",
+    weight: 20,
   },
 ];

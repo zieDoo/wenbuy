@@ -143,7 +143,46 @@
   background: #f1f5f9;
   color: #334155;
 }
+/* 
+.etf-header {
+  padding-right: 2rem;
+  height: 5rem;
+}
+
+.etf-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  line-clamp: 2;
+  overflow: hidden;
+} */
 
 .etf-header {
   padding-right: 2rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.etf-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ticker {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin-top: 0.35rem;
 }
