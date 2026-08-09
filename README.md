@@ -35,7 +35,7 @@ The app helps users monitor ETF prices and see how far the current price is from
 
 ## Preview
 
-![WenBuy dashboard](./screenshot/dashboard.png)
+![WenBuy dashboard](./screenshots/dashboard.png)
 
 ## Installation
 
