@@ -119,3 +119,31 @@
 .buy-score.wait strong {
   color: #dc2626;
 }
+
+.etf-card {
+  position: relative;
+}
+
+.remove-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.etf-header {
+  padding-right: 2rem;
+}

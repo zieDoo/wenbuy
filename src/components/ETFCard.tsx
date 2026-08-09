@@ -92,8 +92,14 @@ function ETFCard({ etf }: ETFCardProps) {
 
   return (
     <div className="etf-card">
-      <h2>{etf.name}</h2>
-      <p className="ticker">{etf.symbol}</p>
+      <button className="remove-button">x</button>
+
+      <div className="etf-header">
+        <div>
+          <h2>{etf.name}</h2>
+          <p className="ticker">{etf.symbol}</p>
+        </div>
+      </div>
 
       {/* <p className="price">
         Price: {etf.price} {etf.currency}
