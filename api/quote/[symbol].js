@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
     const quote = await yahooFinance.quote(symbol);
 
-    console.log("YAHOO QUOTE: ", quote);
+    // console.log("YAHOO QUOTE: ", quote);
 
     res.status(200).json({
       symbol: quote.symbol,
