@@ -9,6 +9,7 @@ import { etfs } from "./data/etfs";
 import { calculatePortfolioScore } from "./utils/portfolioScore";
 import ETFSearch from "./components/ETFSearch";
 import "./App.css";
+import { availableEtfs } from "./data/availableEtfs";
 
 // 1st attempt - AI
 
@@ -97,11 +98,30 @@ function App() {
   const REFRESH_INTERFVAL = 10000;
   const [portfolio, setPortfolio] = useState<ETF[]>([]);
 
+  function removeETF(symbol: string) {
+    setPortfolio((currentPortfolio) =>
+      currentPortfolio.filter((etf) => etf.symbol !== symbol),
+    );
+  }
+
+  async function addETF(etf: (typeof etfs)[number]) {
+    if (portfolio.some((item) => item.symbol === etf.symbol)) {
+      return;
+    }
+    const marketData = await fetchETFInfo(etf.symbol);
+
+    // console.log("NEW ETF MARKET DATA:", marketData);
+    const newETF = { ...etf, ...marketData, weight: 0 };
+
+    console.log("NEW ETF: ", newETF);
+    setPortfolio((currentPortfolio) => [...currentPortfolio, newETF]);
+  }
+
   const portfolioScore = calculatePortfolioScore(portfolio);
 
-  async function loadETF() {
+  async function loadETF(etfsToLoad: typeof etfs) {
     const data = await Promise.all(
-      etfs.map(async (etf) => {
+      etfsToLoad.map(async (etf) => {
         const marketData = await fetchETFInfo(etf.symbol);
 
         return {
@@ -125,9 +145,9 @@ function App() {
   }
 
   useEffect(() => {
-    loadETF();
+    loadETF(etfs);
 
-    const intervalId = setInterval(loadETF, REFRESH_INTERFVAL);
+    const intervalId = setInterval(() => loadETF(etfs), REFRESH_INTERFVAL);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -156,7 +176,7 @@ function App() {
 
         <div className="search-card">
           <span className="search-label">Add an ETF</span>
-          <ETFSearch />
+          <ETFSearch onAdd={addETF} />
         </div>
       </section>
 
@@ -165,7 +185,7 @@ function App() {
 
         <div className="card-container">
           {portfolio.map((etf) => (
-            <ETFCard key={etf.symbol} etf={etf} />
+            <ETFCard key={etf.symbol} etf={etf} onRemove={removeETF} />
           ))}
         </div>
       </section>

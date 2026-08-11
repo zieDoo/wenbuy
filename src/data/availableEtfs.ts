@@ -13,6 +13,6 @@ export const availableEtfs = [
   },
   {
     name: "S&P 500",
-    symbol: "SCR8.DE",
+    symbol: "SXR8.DE",
   },
 ];

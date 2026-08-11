@@ -2,13 +2,11 @@ import { useState } from "react";
 import { availableEtfs } from "../data/availableEtfs";
 import "./ETFSearch.css";
 
-// const ETFSearch = () => {
-//     const [search, setSearch] = useState("")
+interface ETFSearchProps {
+  onAdd: (etf: (typeof availableEtfs)[number]) => void;
+}
 
-//     const
-// }
-
-const ETFSearch = () => {
+const ETFSearch = ({ onAdd }: ETFSearchProps) => {
   const [search, setSearch] = useState("");
 
   const results = availableEtfs.filter((etf) =>
@@ -32,7 +30,14 @@ const ETFSearch = () => {
                 {etf.name} ({etf.symbol})
               </span>
 
-              <button>Add</button>
+              <button
+                onClick={() => {
+                  onAdd(etf);
+                  setSearch("");
+                }}
+              >
+                Add
+              </button>
             </div>
           ))}
         </div>

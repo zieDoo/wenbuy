@@ -47,6 +47,7 @@ import { calculateBuyScore } from "../utils/buyScore";
 
 interface ETFCardProps {
   etf: ETF;
+  onRemove: (symbol: string) => void;
 }
 
 // Funkcia ktora sa pouzivala na vykreslovanie farebneho signalu
@@ -82,7 +83,7 @@ function getBuySignal(score: number) {
   return "WAIT";
 }
 
-function ETFCard({ etf }: ETFCardProps) {
+function ETFCard({ etf, onRemove }: ETFCardProps) {
   console.log(etf);
   const dropFromHigh = ((etf.price - etf.high52) / etf.high52) * 100;
   // const buyColor = getBuycolor(dropFromHigh);
@@ -101,7 +102,11 @@ function ETFCard({ etf }: ETFCardProps) {
 
   return (
     <div className="etf-card">
-      <button className="remove-button" aria-label={`Remove ${etf.symbol}`}>
+      <button
+        className="remove-button"
+        aria-label={`Remove ${etf.symbol}`}
+        onClick={() => onRemove(etf.symbol)}
+      >
         x
       </button>
 
