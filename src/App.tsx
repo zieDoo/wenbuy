@@ -104,7 +104,7 @@ function App() {
     );
   }
 
-  async function addETF(etf: (typeof etfs)[number]) {
+  async function addETF(etf: (typeof availableEtfs)[number]) {
     if (portfolio.some((item) => item.symbol === etf.symbol)) {
       return;
     }
