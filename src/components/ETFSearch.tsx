@@ -25,13 +25,23 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
       {search && (
         <div className="search-results">
           {results.map((etf) => (
-            <div className="search-result" key={etf.symbol}>
+            <div
+              className="search-result"
+              key={etf.symbol}
+              onClick={() => {
+                onAdd(etf);
+                setSearch("");
+              }}
+            >
               <span>
                 {etf.name} ({etf.symbol})
               </span>
 
               <button
-                onClick={() => {
+                onClick={(e) => {
+                  // Prevent the button click from bubbling to the parent row,
+                  // which would otherwise add the ETF twice.
+                  e.stopPropagation();
                   onAdd(etf);
                   setSearch("");
                 }}
