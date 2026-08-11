@@ -1,5 +1,5 @@
 import ETFCard from "./components/ETFCard";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 // import { getETFData } from "./services/etfService";
 import type { ETF } from "./types/etf";
 // import { getQuote } from "./api/twelveData";
@@ -97,11 +97,17 @@ import { availableEtfs } from "./data/availableEtfs";
 function App() {
   const REFRESH_INTERFVAL = 10000;
   const [portfolio, setPortfolio] = useState<ETF[]>([]);
+  const portfolioRef = useRef<ETF[]>([]);
 
   function removeETF(symbol: string) {
-    setPortfolio((currentPortfolio) =>
-      currentPortfolio.filter((etf) => etf.symbol !== symbol),
-    );
+    setPortfolio((currentPortfolio) => {
+      const updatedPortfolio = currentPortfolio.filter(
+        (etf) => etf.symbol !== symbol,
+      );
+      portfolioRef.current = updatedPortfolio;
+
+      return updatedPortfolio;
+    });
   }
 
   async function addETF(etf: (typeof availableEtfs)[number]) {
@@ -114,7 +120,12 @@ function App() {
     const newETF = { ...etf, ...marketData, weight: 0 };
 
     console.log("NEW ETF: ", newETF);
-    setPortfolio((currentPortfolio) => [...currentPortfolio, newETF]);
+    setPortfolio((currentPortfolio) => {
+      const updatedPortfolio = [...currentPortfolio, newETF];
+      portfolioRef.current = updatedPortfolio;
+
+      return updatedPortfolio;
+    });
   }
 
   const portfolioScore = calculatePortfolioScore(portfolio);
@@ -135,6 +146,7 @@ function App() {
     console.log("LOADED ETF:", data);
 
     setPortfolio(data);
+    portfolioRef.current = data;
 
     // setPortfolio(
     //   data.map((item, index) => ({
@@ -144,10 +156,26 @@ function App() {
     // );
   }
 
+  async function refreshPortfolio() {
+    const updatedPortfolio = await Promise.all(
+      portfolioRef.current.map(async (etf) => {
+        const marketData = await fetchETFInfo(etf.symbol);
+
+        return {
+          ...etf,
+          ...marketData,
+        };
+      }),
+    );
+    setPortfolio(updatedPortfolio);
+
+    // await loadETF(portfolio);
+  }
+
   useEffect(() => {
     loadETF(etfs);
 
-    const intervalId = setInterval(() => loadETF(etfs), REFRESH_INTERFVAL);
+    const intervalId = setInterval(refreshPortfolio, REFRESH_INTERFVAL);
 
     return () => clearInterval(intervalId);
   }, []);
