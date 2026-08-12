@@ -28,6 +28,34 @@ app.get("/api/quote/:symbol", async (req, res) => {
   }
 });
 
+app.get("/api/search", async (req, res) => {
+  try {
+    const query = req.query.query;
+
+    if (!query) {
+      return res.status(400).json({
+        error: "Search query is required",
+      });
+    }
+    const results = await yahooFinance.search(query);
+
+    const etfs = results.quotes
+      .filter((quote) => quote.quoteType === "ETF")
+      .filter((quote) => quote.exchange === "GER")
+      .map((quote) => ({
+        symbol: quote.symbol,
+        name: quote.longname || quote.shortname,
+        exchange: quote.exchDisp,
+      }));
+
+    res.json(etfs);
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+});
+
 app.listen(3001, () => {
   console.log("Server running on port 3001");
 });
