@@ -1,17 +1,28 @@
-import { useState } from "react";
-import { availableEtfs } from "../data/availableEtfs";
+import { useEffect, useState } from "react";
+// import { availableEtfs } from "../data/availableEtfs";
+import { fetchETFInfo, searchETFs } from "../api/market";
+import type { ETFSearchResult } from "../types/etfSearch";
 import "./ETFSearch.css";
+import type { ETF } from "../types/etf";
 
 interface ETFSearchProps {
-  onAdd: (etf: (typeof availableEtfs)[number]) => void;
+  onAdd: (etf: ETF) => void;
 }
 
 const ETFSearch = ({ onAdd }: ETFSearchProps) => {
   const [search, setSearch] = useState("");
+  const [results, setResults] = useState<ETFSearchResult[]>([]);
 
-  const results = availableEtfs.filter((etf) =>
-    etf.name.toLowerCase().includes(search.toLowerCase()),
-  );
+  useEffect(() => {
+    if (!search.trim()) {
+      setResults([]);
+      return;
+    }
+
+    searchETFs(search).then((data) => {
+      setResults(data);
+    });
+  }, [search]);
 
   return (
     <div className="etf-search">
@@ -28,8 +39,9 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
             <div
               className="search-result"
               key={etf.symbol}
-              onClick={() => {
-                onAdd(etf);
+              onClick={async () => {
+                const fullETF = await fetchETFInfo(etf.symbol);
+                onAdd(fullETF);
                 setSearch("");
               }}
             >
@@ -38,11 +50,12 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
               </span>
 
               <button
-                onClick={(e) => {
+                onClick={async (e) => {
                   // Prevent the button click from bubbling to the parent row,
                   // which would otherwise add the ETF twice.
                   e.stopPropagation();
-                  onAdd(etf);
+                  const fullETF = await fetchETFInfo(etf.symbol);
+                  onAdd(fullETF);
                   setSearch("");
                 }}
               >

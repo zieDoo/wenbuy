@@ -18,3 +18,10 @@ export async function fetchETFInfo(symbol: string): Promise<ETF> {
 
   return response.data;
 }
+
+export async function searchETFs(query: string) {
+  const response = await api.get("/search", {
+    params: { query },
+  });
+  return response.data;
+}
