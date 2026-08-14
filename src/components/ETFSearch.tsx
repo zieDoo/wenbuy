@@ -24,7 +24,11 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
       onAdd(fullETF);
       setSearch("");
     } catch (error) {
-      setError(error.message);
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Something went wrong");
+      }
     } finally {
       setAdding(false);
     }
@@ -46,8 +50,12 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
-        setError(error.message);
+        // console.log(error);
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("Something went wrong");
+        }
         setLoading(false);
       });
   }, [search]);
@@ -62,6 +70,7 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
       />
 
       {loading && <p>Loading...</p>}
+      {adding && <p>Adding ETF...</p>}
       {error && <p>{error}</p>}
 
       {!loading && !error && search && results.length === 0 && (
