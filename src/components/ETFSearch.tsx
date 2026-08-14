@@ -12,16 +12,44 @@ interface ETFSearchProps {
 const ETFSearch = ({ onAdd }: ETFSearchProps) => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<ETFSearchResult[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [adding, setAdding] = useState(false);
+
+  const handleAdd = async (symbol: string) => {
+    setAdding(true);
+    try {
+      const fullETF = await fetchETFInfo(symbol);
+
+      onAdd(fullETF);
+      setSearch("");
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setAdding(false);
+    }
+  };
 
   useEffect(() => {
     if (!search.trim()) {
       setResults([]);
+      setError("");
       return;
     }
 
-    searchETFs(search).then((data) => {
-      setResults(data);
-    });
+    setError("");
+    setLoading(true);
+
+    searchETFs(search)
+      .then((data) => {
+        setResults(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error.message);
+        setLoading(false);
+      });
   }, [search]);
 
   return (
@@ -33,30 +61,54 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
         onChange={(e) => setSearch(e.target.value)}
       />
 
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+
+      {!loading && !error && search && results.length === 0 && (
+        <p>No ETFs found.</p>
+      )}
+
       {search && (
         <div className="search-results">
           {results.map((etf) => (
             <div
               className="search-result"
               key={etf.symbol}
-              onClick={async () => {
-                const fullETF = await fetchETFInfo(etf.symbol);
-                onAdd(fullETF);
-                setSearch("");
-              }}
+              onClick={
+                () => handleAdd(etf.symbol)
+                // setAdding(true);
+
+                // handleAdd(etf.symbol);
+
+                // try {
+                //   const fullETF = await fetchETFInfo(etf.symbol);
+                //   onAdd(fullETF);
+                //   setSearch("");
+                // } catch (error) {
+                //   setError(error.message);
+                // } finally {
+                //   setAdding(false);
+                //   // setSearch("");
+                // }
+
+                // setSearch("");
+              }
             >
               <span>
                 {etf.name} ({etf.symbol})
               </span>
 
               <button
-                onClick={async (e) => {
+                onClick={(e) => {
                   // Prevent the button click from bubbling to the parent row,
                   // which would otherwise add the ETF twice.
                   e.stopPropagation();
-                  const fullETF = await fetchETFInfo(etf.symbol);
-                  onAdd(fullETF);
-                  setSearch("");
+
+                  handleAdd(etf.symbol);
+
+                  // const fullETF = await fetchETFInfo(etf.symbol);
+                  // onAdd(fullETF);
+                  // setSearch("");
                 }}
               >
                 Add
