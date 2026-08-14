@@ -69,13 +69,15 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      {loading && <p>Loading...</p>}
-      {adding && <p>Adding ETF...</p>}
-      {error && <p>{error}</p>}
+      <div className="search-status">
+        {loading && <p>Loading...</p>}
+        {adding && <p>Adding ETF...</p>}
+        {error && <p>{error}</p>}
 
-      {!loading && !error && search && results.length === 0 && (
-        <p>No ETFs found.</p>
-      )}
+        {!loading && !error && search && results.length === 0 && (
+          <p>No ETFs found.</p>
+        )}
+      </div>
 
       {search && (
         <div className="search-results">

@@ -74,3 +74,13 @@
 .search-result button:hover {
   background: #374151;
 }
+
+.search-status {
+  /* min-height: 1.5rem; */
+  height: 1.5rem;
+}
+
+.search-status p {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+}
