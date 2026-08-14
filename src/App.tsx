@@ -138,7 +138,7 @@ function App() {
         return {
           ...etf,
           ...marketData,
-          name: etf.name,
+          // name: etf.name,
         };
       }),
     );
