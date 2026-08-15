@@ -63,6 +63,8 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
   return (
     <div className="etf-search">
       <input
+        id="etf-search"
+        name="etf-search"
         type="text"
         placeholder="Search ETF..."
         value={search}
