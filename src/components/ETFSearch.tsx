@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 // import { availableEtfs } from "../data/availableEtfs";
 import { fetchETFInfo, searchETFs } from "../api/market";
 import type { ETFSearchResult } from "../types/etfSearch";
@@ -15,6 +15,7 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [adding, setAdding] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleAdd = async (symbol: string) => {
     setAdding(true);
@@ -34,10 +35,15 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
     }
   };
 
+  // ref chceme pripojit na div (s etf-search). Tento ref bude obsahovat HTML div element.
+  // Na zaciatku komponentu ten <div> este nemusi byt dostupny, takze jeho pociatocna hodnota je null.
+  const searchRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!search.trim()) {
       setResults([]);
       setError("");
+      setIsOpen(false);
       return;
     }
 
@@ -47,6 +53,7 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
     searchETFs(search)
       .then((data) => {
         setResults(data);
+        setIsOpen(true);
         setLoading(false);
       })
       .catch((error) => {
@@ -57,11 +64,32 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
           setError("Something went wrong");
         }
         setLoading(false);
+        setIsOpen(false);
       });
   }, [search]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Checking the event where user clicked.
+      // console.log("TARGET: ", event.target);
+
+      // Ak náš search element neobsahuje element, na ktorý používateľ klikol, znamená to, že klikol mimo
+      if (!searchRef.current?.contains(event.target as Node)) {
+        // setResults([]);
+        setIsOpen(false);
+      }
+    };
+
+    // Document, pocuvaj click event a ked sa stane, zavolaj handleClickOutside
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="etf-search">
+    <div ref={searchRef} className="etf-search">
       <input
         id="etf-search"
         name="etf-search"
@@ -81,7 +109,7 @@ const ETFSearch = ({ onAdd }: ETFSearchProps) => {
         )}
       </div>
 
-      {search && (
+      {isOpen && (
         <div className="search-results">
           {results.map((etf) => (
             <div
