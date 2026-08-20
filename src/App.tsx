@@ -117,7 +117,7 @@ function App() {
     const marketData = await fetchETFInfo(etf.symbol);
 
     // console.log("NEW ETF MARKET DATA:", marketData);
-    const newETF = { ...etf, ...marketData, weight: 0 };
+    const newETF = { ...etf, ...marketData, weight: null };
 
     console.log("NEW ETF: ", newETF);
     setPortfolio((currentPortfolio) => {
@@ -154,6 +154,59 @@ function App() {
     //     name: etfs[index].name,
     //   })),
     // );
+  }
+
+  //setPortfolio aktualizuje React state, ktorý používame na UI.
+  // portfolioRef.current sme museli aktualizovať preto, že náš intervalový refresh číta dáta práve z refu.
+  function togglePortfolio(etf: ETF) {
+    setPortfolio((currentPortolio) => {
+      const updatedPortfolio = currentPortolio.map((item) => {
+        if (item.symbol === etf.symbol) {
+          return {
+            ...item, // zachova vsetky existujuce udaje
+            weight: item.weight === null ? 0 : null,
+          };
+        }
+        return item;
+      });
+      portfolioRef.current = updatedPortfolio;
+      return updatedPortfolio;
+    });
+  }
+
+  function weightChange(symbol: string, newWeight: number) {
+    const reduced = portfolio.reduce((total, actual) => {
+      if (actual.symbol === symbol) {
+        return total;
+      } else {
+        return total + (actual.weight ?? 0);
+      }
+    }, 0);
+
+    if (
+      Number.isInteger(newWeight) &&
+      newWeight >= 0 &&
+      reduced + newWeight <= 100
+    ) {
+      setPortfolio((currentPortfolio) => {
+        // const totalWeight = currentPortfolio.reduce((total, item) => {
+        //   return total + (item.weight ?? 0); // Nullish coalescing operator: ak item.weight je cislo - pouzit to cislo. ak je item.weight null alebo undefined tak pouzi nulu.
+        // }, 0);
+
+        const updatedPortfolio = currentPortfolio.map((item) => {
+          if (symbol === item.symbol) {
+            return {
+              ...item,
+              weight: newWeight,
+            };
+          }
+          return item;
+        });
+        portfolioRef.current = updatedPortfolio;
+        return updatedPortfolio;
+      });
+    }
+    return;
   }
 
   async function refreshPortfolio() {
@@ -213,7 +266,13 @@ function App() {
 
         <div className="card-container">
           {portfolio.map((etf) => (
-            <ETFCard key={etf.symbol} etf={etf} onRemove={removeETF} />
+            <ETFCard
+              key={etf.symbol}
+              etf={etf}
+              onRemove={removeETF}
+              onTogglePortfolio={togglePortfolio}
+              onWeightChange={weightChange}
+            />
           ))}
         </div>
       </section>

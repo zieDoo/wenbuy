@@ -48,6 +48,8 @@ import { calculateBuyScore } from "../utils/buyScore";
 interface ETFCardProps {
   etf: ETF;
   onRemove: (symbol: string) => void;
+  onTogglePortfolio: (etf: ETF) => void;
+  onWeightChange: (symbol: string, newWeight: number) => void;
 }
 
 // Funkcia ktora sa pouzivala na vykreslovanie farebneho signalu
@@ -83,7 +85,12 @@ function getBuySignal(score: number) {
   return "WAIT";
 }
 
-function ETFCard({ etf, onRemove }: ETFCardProps) {
+function ETFCard({
+  etf,
+  onRemove,
+  onTogglePortfolio,
+  onWeightChange,
+}: ETFCardProps) {
   console.log(etf);
   const dropFromHigh = ((etf.price - etf.high52) / etf.high52) * 100;
   // const buyColor = getBuycolor(dropFromHigh);
@@ -158,10 +165,39 @@ function ETFCard({ etf, onRemove }: ETFCardProps) {
         <span>{buySignal}</span>
       </div>
 
-      <div className="stat">
-        <span>Weight:</span>
-        <strong>{etf.weight}%</strong>
+      <div>
+        <label htmlFor="weight">
+          <input
+            type="checkbox"
+            checked={etf.weight !== null}
+            onChange={() => onTogglePortfolio(etf)}
+          />
+          Include in portfolio
+        </label>
       </div>
+
+      {etf.weight !== null && (
+        <div className="stat">
+          <span>Weight:</span>
+          <input
+            min={0}
+            max={100}
+            step={1}
+            type="number"
+            onChange={(event) => {
+              onWeightChange(etf.symbol, Number(event.target.value));
+            }}
+            value={etf.weight}
+          />
+        </div>
+      )}
+
+      {/* {etf.weight !== null && (
+        <div className="stat">
+          <span>Weight:</span>
+          <strong>{etf.weight}%</strong>
+        </div>
+      )} */}
 
       <div className={`buy-score ${buySignal.toLowerCase()}`}>
         <span>Buy Score:</span>

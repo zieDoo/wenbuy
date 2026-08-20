@@ -23,16 +23,16 @@ export const etfs = [
   {
     name: "Nasdaq 100",
     symbol: "SXRV.DE",
-    weight: 30,
+    weight: null,
   },
   {
     name: "MSCI World",
     symbol: "EUNL.DE",
-    weight: 50,
+    weight: null,
   },
   {
     name: "Vanguard FTSE All-World",
     symbol: "VWCE.DE",
-    weight: 20,
+    weight: null,
   },
 ];
